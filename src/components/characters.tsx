@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { GetCharactersDocument } from "../gql/graphql";
 import CharacterModal from "./characterModal";
 
-import { Button } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 import { useState } from "react";
 
 function DisplayCharacters() {
@@ -33,18 +33,17 @@ function DisplayCharacters() {
       <div className="grid grid-cols-3 gap-4">
         {data?.characters?.results?.map((character) =>
           character ? (
-            <div
+            <Card
               key={character.id}
-              className="p-4 border rounded shadow cursor-pointer"
+              imgAlt={character.name || ""}
+              imgSrc={character.image || "default_image_url"}
+              className="cursor-pointer"
               onClick={() => handleCharacterClick(character.id || "")}
             >
-              <p className="font-bold">{character.name}</p>
-              <img
-                className="w-full h-auto"
-                src={character.image || "default_image_url"}
-                alt={character.name || "default_alt"}
-              />
-            </div>
+              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {character.name}
+              </h5>
+            </Card>
           ) : null
         )}
       </div>
