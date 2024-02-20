@@ -1,67 +1,31 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GetCharactersDocument, GetCharactersQuery } from "../gql/graphql";
 
-const GET_CHARACTERS = gql`
-  query GetCharacters($page: Int) {
-    characters(page: $page) {
-      results {
-        id
-        name
-        image
-      }
-      info {
-        pages
-        next
-      }
-    }
-  }
-`;
-
-function Characters() {
-  const { loading, error, data, fetchMore } = useQuery(GET_CHARACTERS, {
-    variables: { page: 1 },
-  });
+function DisplayCharacters() {
+  const { loading, error, data } = useQuery<GetCharactersQuery>(
+    GetCharactersDocument
+  );
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :</p>;
-
-const loadMore = () => {
-  fetchMore({
-    variables: {
-      page: data.characters.info.next,
-    },
-    updateQuery: (prev, { fetchMoreResult }) => {
-      if (!fetchMoreResult) return prev;
-      return {
-        characters: {
-          ...fetchMoreResult.characters,
-          results: [
-            ...prev.characters.results,
-            ...fetchMoreResult.characters.results,
-          ],
-        },
-      };
-    },
-  });
-};
+  if (error) return <p>Error :(</p>;
 
   return (
     <div>
       <h3>Characters</h3>
-      {data.characters.results.map(
-        ({ id, name, image }: { id: string; name: string; image: string }) => (
-          <div key={id}>
-            <p>
-              {id}: {name}
-            </p>
-            <img src={image} alt={name} />
-          </div>
-        )
-      )}
-      {data.characters.info.next && (
-        <button onClick={loadMore}>Load More</button>
+      {data?.characters?.results?.map(
+        (character) =>
+          character && (
+            <div key={character.id}>
+              <p>{character.name}</p>
+              <img
+                src={character.image || "default_image_url"}
+                alt={character.name || "default_image_alt"}
+              />
+            </div>
+          )
       )}
     </div>
   );
 }
 
-export default Characters;
+export default DisplayCharacters;
