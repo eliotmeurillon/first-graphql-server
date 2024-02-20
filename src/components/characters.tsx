@@ -37,7 +37,7 @@ function DisplayCharacters() {
               key={character.id}
               imgAlt={character.name || ""}
               imgSrc={character.image || "default_image_url"}
-              className="cursor-pointer"
+              className="cursor-pointer max-w-sm"
               onClick={() => handleCharacterClick(character.id || "")}
             >
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
