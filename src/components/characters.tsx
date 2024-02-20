@@ -1,19 +1,10 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GetCharactersDocument, GetCharactersQuery } from "../gql/graphql"; // Adjust the import path as necessary
 
-const GET_CHARACTERS = gql`
-  query GetCharacters {
-    characters {
-      results {
-        id
-        name
-        image
-      }
-    }
-  }
-`;
-
-function Characters() {
-  const { loading, error, data } = useQuery(GET_CHARACTERS);
+function DisplayCharacters() {
+  const { loading, error, data } = useQuery<GetCharactersQuery>(
+    GetCharactersDocument
+  );
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -21,18 +12,20 @@ function Characters() {
   return (
     <div>
       <h3>Characters</h3>
-      {data.characters.results.map(
-        ({ id, name, image }: { id: string; name: string; image: string }) => (
-          <div key={id}>
-            <p>
-              {id}: {name}
-            </p>
-            <img src={image} alt={name} />
-          </div>
-        )
+      {data?.characters?.results?.map(
+        (character) =>
+          character && (
+            <div key={character.id}>
+              <p>{character.name}</p>
+              <img
+                src={character.image || "default_image_url"}
+                alt={character.name || "default_image_alt"}
+              />
+            </div>
+          )
       )}
     </div>
   );
 }
 
-export default Characters;
+export default DisplayCharacters;
