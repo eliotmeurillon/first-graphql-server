@@ -24,13 +24,25 @@ function Characters() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :</p>;
 
-  const loadMore = () => {
-    fetchMore({
-      variables: {
-        page: data.characters.info.next,
-      },
-    });
-  };
+const loadMore = () => {
+  fetchMore({
+    variables: {
+      page: data.characters.info.next,
+    },
+    updateQuery: (prev, { fetchMoreResult }) => {
+      if (!fetchMoreResult) return prev;
+      return {
+        characters: {
+          ...fetchMoreResult.characters,
+          results: [
+            ...prev.characters.results,
+            ...fetchMoreResult.characters.results,
+          ],
+        },
+      };
+    },
+  });
+};
 
   return (
     <div>
