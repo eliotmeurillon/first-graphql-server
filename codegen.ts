@@ -1,19 +1,18 @@
-
-import type { CodegenConfig } from '@graphql-codegen/cli';
+import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   overwrite: true,
   schema: "https://rickandmortyapi.com/graphql",
-  documents: "src/**/*.tsx",
+  documents: "src/**/*.graphql",
   generates: {
     "src/gql/": {
       preset: "client",
-      plugins: []
+      plugins: [],
     },
     "./graphql.schema.json": {
-      plugins: ["introspection"]
-    }
-  }
+      plugins: ["introspection"],
+    },
+  },
 };
 
 export default config;

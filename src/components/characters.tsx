@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GetCharactersDocument, GetCharactersQuery } from "../gql/graphql"; // Adjust the import path as necessary
+import { GetCharactersDocument, GetCharactersQuery } from "../gql/graphql";
 
 function DisplayCharacters() {
   const { loading, error, data } = useQuery<GetCharactersQuery>(
