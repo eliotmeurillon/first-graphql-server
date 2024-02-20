@@ -110,7 +110,14 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
               {character?.episode && (
                 <>
                   <h3 className="text-xl font-bold mb-2">Episodes:</h3>
-                  <CharacterEpisodesTable episodes={character.episode} />
+                  <CharacterEpisodesTable
+                    episodes={character.episode
+                      .filter(
+                        (ep): ep is { name: string; episode: string } =>
+                          ep !== null
+                      )
+                      .map(({ name, episode }) => ({ name, episode }))}
+                  />
                 </>
               )}
             </div>
