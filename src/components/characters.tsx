@@ -6,6 +6,7 @@ const GET_CHARACTERS = gql`
       results {
         id
         name
+        image
       }
     }
   }
@@ -21,11 +22,12 @@ function Characters() {
     <div>
       <h3>Characters</h3>
       {data.characters.results.map(
-        ({ id, name }: { id: string; name: string }) => (
+        ({ id, name, image }: { id: string; name: string; image: string }) => (
           <div key={id}>
             <p>
               {id}: {name}
             </p>
+            <img src={image} alt={name} />
           </div>
         )
       )}
