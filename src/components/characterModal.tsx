@@ -93,16 +93,16 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
                 src={character.image}
                 alt={character.name}
               />
-              <div className="flex flex-col items-center gap-1">
-                <p className="flex items-center gap-1">
+              <div className="flex flex-col gap-2 [&>*]:justify-between [&>*]:gap-3">
+                <p className="flex items-center">
                   <strong>Status:</strong>
                   <Badge color={badgeColor}>{character.status}</Badge>
                 </p>
-                <p className="flex items-center gap-1">
+                <p className="flex items-center">
                   <strong>Species:</strong>
                   <Badge color={speciesColor}>{character.species}</Badge>
                 </p>
-                <p className="flex items-center gap-1">
+                <p className="flex items-center">
                   <strong>Gender:</strong>
                   <Badge color={genderColor}>{character.gender}</Badge>
                 </p>
