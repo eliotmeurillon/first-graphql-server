@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GetCharactersDocument, GetCharactersQuery } from "../gql/graphql";
+import { GetCharactersDocument } from "../gql/graphql";
 
 function DisplayCharacters() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { loading, error, data, fetchMore } = useQuery<GetCharactersQuery>(
-    GetCharactersDocument,
-    {
-      variables: { page: currentPage },
-    }
-  );
+  const { loading, error, data, fetchMore } = useQuery(GetCharactersDocument, {
+    variables: { page: currentPage },
+  });
 
   const goToPage = (page: number) => {
     fetchMore({
