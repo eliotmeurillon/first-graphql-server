@@ -30,7 +30,7 @@ function DisplayCharacters() {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4 ">
         {data?.characters?.results?.map((character) =>
           character ? (
             <Card
@@ -55,19 +55,17 @@ function DisplayCharacters() {
       )}
       <div className="flex justify-between mt-4">
         <Button
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage <= 1}
         >
           Previous
         </Button>
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+        <Button
           onClick={() => goToPage(currentPage + 1)}
           disabled={currentPage >= (data?.characters?.info?.pages || Infinity)}
         >
           Next
-        </button>
+        </Button>
       </div>
     </>
   );
