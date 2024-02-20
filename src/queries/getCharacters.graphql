@@ -11,3 +11,19 @@ query GetCharacters($page: Int) {
     }
   }
 }
+
+query GetCharacter($id: ID!) {
+  character(id: $id) {
+    id
+    name
+    status
+    species
+    type
+    gender
+    image
+    episode {
+      name
+      episode
+    }
+  }
+}
