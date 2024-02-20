@@ -59,7 +59,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
                 <span className="text-2xl">&times;</span>
               </button>
             </div>
-            {character && (
+            {character?.name && character?.image ? (
               <>
                 <h2 className="text-2xl font-bold mb-4">{character.name}</h2>
                 <img
@@ -80,16 +80,19 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
                   <>
                     <h3 className="text-xl font-bold mb-2">Episodes:</h3>
                     <ul className="list-disc list-inside">
-                      {character.episode.map((ep, index) => (
-                        <li key={index}>
-                          {ep.name} - {ep.episode}
-                        </li>
-                      ))}
+                      {character?.episode.map(
+                        (ep, index) =>
+                          ep && (
+                            <li key={index}>
+                              {ep.name} - {ep.episode}
+                            </li>
+                          )
+                      )}
                     </ul>
                   </>
                 )}
               </>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
