@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { GetCharacterDocument } from "../gql/graphql";
-import { Modal, Badge } from "flowbite-react";
+import { Modal, Badge, Table } from "flowbite-react";
 
 interface CharacterModalProps {
   characterId: string;
@@ -24,6 +24,43 @@ const genderColors: { [key: string]: string } = {
   Male: "blue",
   Female: "pink",
   unknown: "gray",
+};
+
+interface Episode {
+  episode: string;
+  name: string;
+}
+
+interface CharacterEpisodesTableProps {
+  episodes: Episode[];
+}
+
+const CharacterEpisodesTable: React.FC<CharacterEpisodesTableProps> = ({
+  episodes,
+}) => {
+  return (
+    <div className="overflow-x-auto">
+      <Table hoverable={true}>
+        <Table.Head>
+          <Table.HeadCell>Episode</Table.HeadCell>
+          <Table.HeadCell>Name</Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {episodes.map((ep, index) => (
+            <Table.Row
+              key={index}
+              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            >
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                {ep.episode}
+              </Table.Cell>
+              <Table.Cell>{ep.name}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </div>
+  );
 };
 
 const CharacterModal: React.FC<CharacterModalProps> = ({
@@ -70,19 +107,10 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
                   <Badge color={genderColor}>{character.gender}</Badge>
                 </p>
               </div>
-              {character.episode && (
+              {character?.episode && (
                 <>
                   <h3 className="text-xl font-bold mb-2">Episodes:</h3>
-                  <ul className="list-disc list-inside">
-                    {character?.episode.map(
-                      (ep, index) =>
-                        ep && (
-                          <li key={index}>
-                            {ep.name} - {ep.episode}
-                          </li>
-                        )
-                    )}
-                  </ul>
+                  <CharacterEpisodesTable episodes={character.episode} />
                 </>
               )}
             </div>
