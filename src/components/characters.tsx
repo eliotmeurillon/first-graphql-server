@@ -1,7 +1,9 @@
-import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GetCharactersDocument } from "../gql/graphql";
 import CharacterModal from "./characterModal";
+
+import { Button } from "flowbite-react";
+import { useState } from "react";
 
 function DisplayCharacters() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,13 +55,13 @@ function DisplayCharacters() {
         />
       )}
       <div className="flex justify-between mt-4">
-        <button
+        <Button
           className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage <= 1}
         >
           Previous
-        </button>
+        </Button>
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
           onClick={() => goToPage(currentPage + 1)}
