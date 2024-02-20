@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery, gql } from "@apollo/client";
 
 const GET_CHARACTERS = gql`
@@ -21,13 +20,15 @@ function Characters() {
   return (
     <div>
       <h3>Characters</h3>
-      {data.characters.results.map(({ id, name }) => (
-        <div key={id}>
-          <p>
-            {id}: {name}
-          </p>
-        </div>
-      ))}
+      {data.characters.results.map(
+        ({ id, name }: { id: string; name: string }) => (
+          <div key={id}>
+            <p>
+              {id}: {name}
+            </p>
+          </div>
+        )
+      )}
     </div>
   );
 }
